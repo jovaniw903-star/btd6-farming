@@ -315,8 +315,8 @@ while (toggle) {
         tt("Placing towers...")
         if (Strategy="Heli") {
             press("b")                            ; place heli
-            clickHere(1560, 575)
-            clickHere(1560, 575)
+            clickHere(1548, 591)
+            clickHere(1548, 591)
             pressStream(",,,..")
             clickHere(0, 0)
             press("z")                             ; place sniper
@@ -328,8 +328,8 @@ while (toggle) {
             press("{Tab}")
             clickHere(0, 0)
             press("b")                            ; place heli
-            clickHere(110, 575)
-            clickHere(110, 575)
+            clickHere(123, 554)
+            clickHere(123, 554)
             pressStream(",,,..")
             clickHere(0, 0)
             press()                                ; place target monkey
