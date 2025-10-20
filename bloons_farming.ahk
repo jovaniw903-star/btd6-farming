@@ -290,7 +290,7 @@ while (toggle) {
     if (step=1) {                                ; STEP 1.1: MENU
         Hotkey, ^m, Off
         tt("Starting round...")
-        clickHere(835, 935)                        ; click play
+        clickHere(930, 935)                        ; click play
         Sleep TransitionDelay
         clickHere(1340, 975)                    ; click expert maps
         Sleep TransitionDelay
