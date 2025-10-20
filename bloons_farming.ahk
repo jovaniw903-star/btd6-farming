@@ -310,9 +310,9 @@ while (toggle) {
         clickHere(1100, 720)                    ; try and click overwrite
                                                 ; STEP 1.2: WAIT FOR LOAD
         color := 0
-        while (!nearColor(color, 0xffffff) and toggle) { ; wait for start
+        while (!nearColor(color, 0x00e15d) and toggle) { ; wait for start
             tt("Waiting for game...")
-            color := colorHere(936, 0)
+            color := colorHere(1020, 760)
             Sleep InputDelay
         }
                                                 ; STEP 1.3: PLACING TOWERS
