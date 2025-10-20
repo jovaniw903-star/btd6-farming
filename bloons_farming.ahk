@@ -328,8 +328,8 @@ while (toggle) {
             press("{Tab}")
             clickHere(0, 0)
             press("b")                            ; place heli
-            clickHere(123, 554)
-            clickHere(123, 554)
+            clickHere(127, 582)
+            clickHere(127, 582)
             pressStream(",,,..")
             clickHere(0, 0)
             press()                                ; place target monkey
