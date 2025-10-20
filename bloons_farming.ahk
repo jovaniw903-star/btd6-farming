@@ -162,8 +162,9 @@ press(key:=false) {
     global hotkey_dict
     global TargetMonkey
     global InputDelay
-    if !key
+    if (!key) {
         key := hotkey_dict[TargetMonkey]
+    }
     SendInput %key%
     Sleep InputDelay
     return
@@ -248,6 +249,12 @@ InputDelay := BaseInputDelay * (1+ExtraDelay)
 TransitionDelay := BaseTransitionDelay * (1+ExtraDelay)
 BTDFGuiClose:
 Gui, BTDF:Destroy
+global WaterMonkeyTarget
+if (TargetMonkey = "sub" or TargetMonkey = "buccaneer") {
+    WaterMonkeyTarget := true
+} else {
+    WaterMonkeyTarget := false 
+}
 menuOpen := false
 Sleep 250
 if (toggleText="On") {
@@ -303,9 +310,9 @@ while (toggle) {
         clickHere(1100, 720)                    ; try and click overwrite
                                                 ; STEP 1.2: WAIT FOR LOAD
         color := 0
-        while (!nearColor(color, 0x00e15d) and toggle) { ; wait for start
+        while (!nearColor(color, 0xffffff) and toggle) { ; wait for start
             tt("Waiting for game...")
-            color := colorHere(1020, 760)
+            color := colorHere(973, 775)
             Sleep InputDelay
         }
                                                 ; STEP 1.3: PLACING TOWERS
@@ -333,8 +340,13 @@ while (toggle) {
             pressStream(",,,..")
             clickHere(0, 0)
             press()                                ; place target monkey
-            clickHere(835, 745)
-            clickHere(835, 745)
+            if (WaterMonkeyTarget) {
+                clickHere(482, 867)
+                clickHere(482, 867)
+            } else {
+                clickHere(835, 745)
+                clickHere(835, 745)
+            }
         }
         if (Strategy="Sniper") {
             press("k")                          ; place village
@@ -353,10 +365,17 @@ while (toggle) {
             pressStream(",,,/")
             clickHere(0, 0)
             press()                                ; place target monkey
-            clickHere(110, 560)
-            clickHere(110, 560)
+            if (WaterMonkeyTarget) {
+                clickHere(482, 867)
+                clickHere(482, 867)
+            } else {
+                clickHere(110, 560)
+                clickHere(110, 560)
+            }
         }
         pressStream(",./,./,./,./,./,./")
+        Sleep TransitionDelay
+        clickHere(84, 94) ; close upgrade screen
         clickHere(30, 0)
         press("{Space}")                        ; start
         press("{Space}")                        ; speed up
@@ -402,12 +421,21 @@ while (toggle) {
         }
         if (step=3) {                           ; STEP 3: LOAD HOME SCREEN
             color := 0
+            step3StartTime := A_TickCount
+            setStepTo1 := true
             while (!nearColor(color, 0xffffff) and toggle and !menuOpen) {    ; wait for home screen
                 tt("Waiting for menu...")
                 color := colorHere(960, 950)
                 Sleep InputDelay
+                if (A_TickCount - step3StartTime > 5000) {
+                    step := 2
+                    setStepTo1 := false 
+                    break ; go back to step 2 if we failed to get to home screen for over 5 seconds
+                }
             }
-            step := 1
+            if (setStepTo1) {
+                step := 1
+            }
         }
     }
 }
