@@ -312,7 +312,7 @@ while (toggle) {
         color := 0
         while (!nearColor(color, 0xffffff) and toggle) { ; wait for start
             tt("Waiting for game...")
-            color := colorHere(973, 775)
+            color := colorHere(936, 0)
             Sleep InputDelay
         }
                                                 ; STEP 1.3: PLACING TOWERS
